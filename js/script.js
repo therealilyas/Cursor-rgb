@@ -2,27 +2,29 @@ let main = document.getElementById('main')
 let circleMouse = document.getElementById('rgbCircle');
 
 document.addEventListener('mousemove', (e) => {
-    circle(e);
+    createCircle(e);
 });
 
-
-
-function circle(e) {
+function createCircle(e) {
     circleMouse.style.left = e.pageX + 'px';
     circleMouse.style.top = e.pageY + 'px';
 
-    let a = circleMouse.cloneNode(true);
+    let anotherCircle = circleMouse.cloneNode(true);
 
-    main.appendChild(a);
+    main.appendChild(anotherCircle);
 
-    let random = Math.floor(Math.random() * 999);
-    let letter = 'ABCDEF';
-    let letterRandom = letter[Math.floor(Math.random() * 6)]
-    circleMouse.style.backgroundColor = "#" + letterRandom + random + letterRandom;
-
+    circleMouse.style.backgroundColor = getRandomColor();
 
     setTimeout(() => {
-        a.className = 'hide';
-    }, 1000);
+        anotherCircle.remove();
+    }, 2000);
+}
 
+function getRandomColor() {
+    let letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
